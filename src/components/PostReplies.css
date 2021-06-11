@@ -1,0 +1,28 @@
+.post-replies {
+  color: #fff;
+  display: flex;
+  position: relative;
+}
+
+.post-reply {
+  color: #fff;
+}
+
+.reply-author {
+  color: #ffba00;
+  flex: 1;
+}
+
+.reply-ul {
+  border-left: 1px solid #fff;
+  padding: 0 0 0 15px;
+}
+
+.post-reply::before {
+  content: '';
+  /* border-bottom: 1px solid #f00; */
+  width: 15px;
+  position: absolute;
+  bottom: 10px;
+  left: -38px;
+}

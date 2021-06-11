@@ -1,0 +1,10 @@
+.root-post {
+  background-color: #202224;
+  color: #fff;
+  font: 14px/1.5 arial,helvetica,clean,sans-serif;
+  padding: 3px 0 25px;
+}
+
+.root-author {
+  text-decoration: none;
+}

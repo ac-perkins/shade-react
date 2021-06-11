@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
-function App() {
+import Chatty from './components/Chatty';
+import LoginForm from './components/Login/LoginForm';
+import './App.css';
+// import ThreadList from './ThreadList';
+
+const App = () => {
+  const [chatty, setChatty] = useState([]);
+  const [newestEventId, setNewestEventId] = useState(null);
+
+  const winchatty = 'https://winchatty.com/v2';
+
+  useEffect(() => {
+    const getChatty = async () => {
+      try {
+        const response = await fetch(`${winchatty}/getChatty`);
+        const data = await response.json();
+
+        // console.log(data.threads);
+        setChatty(data.threads);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getChatty();
+
+    const getNewestEventId = async () => {
+      const response = await fetch(`${winchatty}/getNewestEventId`);
+      const data = await response.json();
+      console.log('newest event, ', data);
+      // console.log(data.eventId);
+      setNewestEventId(data.eventId);
+    };
+
+    getNewestEventId();
+
+    // const waitForEvent = async () => {
+    //   const { data } = await winchatty.get('/waitForEvent', {
+    //     params: {
+    //       lastEventId: newestEventId,
+    //     },
+    //   });
+    // };
+
+    // waitForEvent();
+  }, [newestEventId]);
+
+  // return <ThreadList posts={posts} />;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <LoginForm />
+      <Chatty posts={chatty} />
+    </React.Fragment>
   );
-}
+};
 
 export default App;
